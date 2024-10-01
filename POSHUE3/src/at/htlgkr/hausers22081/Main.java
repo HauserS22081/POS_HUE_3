@@ -23,6 +23,21 @@ public class Main {
         return weapons.stream().sorted((w1, w2) -> w2.getDamage() - w1.getDamage()).toList();
     }
 
+    public static List<Weapon> sortCTypeDTypeName(List<Weapon> weapons) {
+        return weapons.stream().sorted(Main::compareCTypeDTypeName).toList();
+    }
+
+    private static int compareCTypeDTypeName(Weapon w1, Weapon w2) {
+
+        int compare = w1.getCombatType().toString().compareTo(w2.getCombatType().toString());
+        if (compare != 0) return compare;
+
+        compare = w1.getDamageType().toString().compareTo(w2.getDamageType().toString());
+        if(compare != 0) return compare;
+
+        return w1.getName().compareTo(w2.getName());
+    }
+
     private static List<Weapon> readInCsv() {
         List<Weapon> weapons = new ArrayList<>();
         try {
