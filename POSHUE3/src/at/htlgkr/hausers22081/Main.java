@@ -18,12 +18,12 @@ public class Main {
 
         weapons = sortDescendingAfterDamage(weapons);
 
-        Printable printableLine = weaponsList -> weaponsList.forEach(w -> System.out.printf("%s: %s | %s - damge: %d - speed: %d - strength: %d - value: %d\n", w.getName(), w.getDamageType(), w.getCombatType(), w.getDamage(), w.getSpeed(), w.getStrength(), w.getValue()));;
+        Printable printableLine = weaponsList -> weaponsList.forEach(w -> System.out.printf("%s: %s | %s - damge: %d - speed: %d - strength: %d - value: %d\n", w.getName(), w.getDamageType(), w.getCombatType(), w.getDamage(), w.getSpeed(), w.getStrength(), w.getValue()));
         printableLine.print(weapons);
 
-        Printable printableTable = weaponsList -> {
-            weaponsList.forEach(w -> );
-        }
+        System.out.printf("\n%17s|%11s|%11s|%7s|%6s|%9s\n", "Name", "CombatType", "DamageType", "Damage", "Speed", "Strength", "Value");
+        Printable printableTable = weaponsList -> weaponsList.forEach(w -> System.out.printf("%17s|%11s|%11s|%7d|%6d|%9d\n", w.getName(), w.getCombatType(), w.getDamageType(), w.getDamage(), w.getSpeed(), w.getStrength(), w.getValue()));
+        printableTable.print(weapons);
     }
 
     public static List<Weapon> sortDescendingAfterDamage(List<Weapon> weapons) {
