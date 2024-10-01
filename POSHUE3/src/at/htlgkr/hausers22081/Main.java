@@ -17,6 +17,10 @@ public class Main {
         weapons = readInCsv();
 
         sortDescendingAfterDamage(weapons);
+
+        Printable printable = weaponsList -> weaponsList.forEach(w -> String.format("%s: %s | %s - damge: %d - speed: %d - strength: %d - value: %d", w.getName(), w.getDamageType(), w.getCombatType(), w.getDamage(), w.getSpeed(), w.getStrength(), w.getValue()));;
+
+        printable.print(weapons);
     }
 
     public static List<Weapon> sortDescendingAfterDamage(List<Weapon> weapons) {
