@@ -16,11 +16,14 @@ public class Main {
 
         weapons = readInCsv();
 
-        sortDescendingAfterDamage(weapons);
+        weapons = sortDescendingAfterDamage(weapons);
 
-        Printable printable = weaponsList -> weaponsList.forEach(w -> String.format("%s: %s | %s - damge: %d - speed: %d - strength: %d - value: %d", w.getName(), w.getDamageType(), w.getCombatType(), w.getDamage(), w.getSpeed(), w.getStrength(), w.getValue()));;
+        Printable printableLine = weaponsList -> weaponsList.forEach(w -> System.out.printf("%s: %s | %s - damge: %d - speed: %d - strength: %d - value: %d\n", w.getName(), w.getDamageType(), w.getCombatType(), w.getDamage(), w.getSpeed(), w.getStrength(), w.getValue()));;
+        printableLine.print(weapons);
 
-        printable.print(weapons);
+        Printable printableTable = weaponsList -> {
+            weaponsList.forEach(w -> );
+        }
     }
 
     public static List<Weapon> sortDescendingAfterDamage(List<Weapon> weapons) {
@@ -46,6 +49,7 @@ public class Main {
         List<Weapon> weapons = new ArrayList<>();
         try {
             weapons = Files.lines(Path.of(CSVPATH))
+                    .skip(1)
                     .map(s -> s.split(";"))
                     .map(s -> new Weapon(
                             s[0],
