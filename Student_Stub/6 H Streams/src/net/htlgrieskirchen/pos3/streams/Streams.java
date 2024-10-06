@@ -14,11 +14,13 @@ public class Streams {
     
     public List<String> upperCase(String[] strings) {
         return Arrays.stream(strings)
-                .map(s -> s.toUpperCase())
+                .map(String::toUpperCase)
                 .collect(Collectors.toList());
     }
 
     public Weapon findWeaponWithLowestDamage(List<Weapon> weapons) {
+        if(weapons == null || weapons.isEmpty()) return null;
+
 //        return weapons.stream().min((w1, w2) -> w1.getDamage() - w2.getDamage()).get();
         return weapons.stream()
                 .min(Comparator.comparingInt(Weapon::getDamage))
@@ -26,6 +28,8 @@ public class Streams {
     }
 
     public Weapon findWeaponWithHighestStrength(List<Weapon> weapons) {
+        if(weapons == null || weapons.isEmpty()) return null;
+
 //        return weapons.stream().max((w1, w2) -> w1.getMinStrength() - w2.getMinStrength()).get();
         return weapons.stream()
                 .max(Comparator.comparingInt(Weapon::getMinStrength))
@@ -39,9 +43,12 @@ public class Streams {
     }
 
     public Weapon findWeaponWithLongestName(List<Weapon> weapons) {
-//        return weapons.stream().max((w1, w2) -> w1.getName().compareTo(w2.getName())).get();
+        if(weapons == null || weapons.isEmpty()) return null;
+
+//        return weapons.stream().max((w1, w2) -> w1.getName().length() - w2.getName().length()).get();
+
         return weapons.stream()
-                .max(Comparator.comparing(Weapon::getName))
+                .max(Comparator.comparingInt(w -> w.getName().length()))
                 .get();
     }
 

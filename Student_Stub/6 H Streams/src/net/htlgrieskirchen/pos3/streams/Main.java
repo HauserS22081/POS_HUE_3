@@ -48,7 +48,7 @@ public class Main {
 
     private static void fourthExample() {
         // Bsp 4:
-        System.out.println("\n\nBsp 4:\n");
+        System.out.println("\n\nBsp 4:");
 
         final IntPredicate isEven = number -> (number % 2 == 0);
 
@@ -59,12 +59,12 @@ public class Main {
 //                .reduce(0, (n1, n2) -> n1 + n2);
                 .reduce(0, Integer::sum);
 
-        System.out.println("\nSum of quadrats 1 - 10: \n" + result);
+        System.out.println("\nSum of quadrats uneven numbers 1 - 10: \n" + result);
     }
 
     private static void thirdExample() {
         // Bsp 3:
-        System.out.println("\n\nBsp 3:\n");
+        System.out.println("\n\nBsp 3:");
 
         final Predicate<Integer> isEven = number -> (number % 2 == 0);
         final Predicate<Integer> isPositive = number -> (number > 0);
@@ -73,7 +73,7 @@ public class Main {
         final Predicate<Integer> is0 = number -> (number == 0);
         final Predicate<String> isShortWord = word -> (word.length() < 4);
 
-        List<Integer> numbers = Arrays.asList(-10, -7, 0, 1, 4, null);
+        List<Integer> numbers = Arrays.asList(-10, -7, 0, 1, 4);
         System.out.println("\nNumbers: ");
         numbers.forEach(System.out::println);
 
@@ -83,8 +83,10 @@ public class Main {
         System.out.println("\nIs positive and uneven: ");
         isPositiveAndUneven(isPositive, isEven, numbers).forEach(System.out::println);
 
+        List<Integer> numbersWithNull = Arrays.asList(-10, -7, 0, 1, 4, null);
+
         System.out.println("\nIs Null: ");
-        numbers.stream()
+        numbersWithNull.stream()
                 .filter(isNull)
                 .forEach(System.out::println);
 
@@ -93,7 +95,7 @@ public class Main {
                 .filter(is0)
                 .forEach(System.out::println);
 
-        List<String> strings = Arrays.asList("abcdef", "xyz", "awwrwerwer", "a", "", null);
+        List<String> strings = Arrays.asList("abcdef", "xyz", "awwrwerwer", "a");
         System.out.println("\nStrings: ");
         strings.forEach(System.out::println);
 
@@ -116,12 +118,12 @@ public class Main {
     }
 
     private static void secondExample() {
-        System.out.println("\nBsp 2:\n");
+        System.out.println("Bsp 2:\n");
 
         Streams streams = new Streams();
 
         int[] rdmNumbers = createIntArr(10000, 100);
-        System.out.println("Average: \n" + Streams.average(rdmNumbers));
+        System.out.println("\nAverage: \n" + Streams.average(rdmNumbers));
 
         String[] rdmStrings = createStringArr(10, 10);
         System.out.println("\nRandom Strings: ");
@@ -182,21 +184,23 @@ public class Main {
     }
 
     private static int[] createIntArr(int number, int upperBound) {
-        int[] numbers = new int[number];
-
-        Arrays.stream(numbers).forEach(n -> n = random.nextInt(upperBound));
-
-        return numbers;
+        return IntStream.range(1, number - 1)
+                .map(n -> new Random().nextInt(upperBound))
+                .toArray();
     }
 
     private static String[] createStringArr(int number, int length) {
-        String[] strings = new String[number];
 
-        Arrays.stream(strings).forEach(s -> {
-            for (int i = 0; i < length; i++) {
-                s += (char) (int) 'a' + random.nextInt(25);
-            }
-        });
+        String[] strings = new String[number];
+        strings = Arrays.stream(strings)
+                .map(s -> {
+                    s = "";
+                    for (int i = 0; i < length; i++) {
+                        s += (char) ('a' + new Random().nextInt(26));
+                    }
+                    return s;
+                })
+                .toArray(String[]::new);
 
         return strings;
     }
